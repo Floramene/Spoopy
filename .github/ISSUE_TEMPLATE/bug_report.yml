@@ -1,0 +1,38 @@
+name: Bug Report
+description: Report on any errors / unexpected behavior
+labels: [bug]
+
+body:
+  - type: checkboxes
+    attributes:
+      label: 🔍 Is there already an issue for your problem?
+      description: Please make sure you are not creating an already submitted issue. Check closed issues as well, because your issue may have already been addressed.
+      options:
+        - label: I have checked older issues, open and closed
+          required: true
+
+  - type: textarea
+    attributes:
+      label: Environment / Computer Info
+      description: Please provide the details of the system the bot is running on
+      placeholder: |
+        - Python Version: 3.12.0
+        - Operating System (OS): Windows, Debian, Arch.. etc
+      render: Markdown
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 📝 Description
+      description: List steps to reproduce the error and details on what happens and what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: 📸 Screenshots
+      description: Place any screenshots of the issue / output of logs if needed
+    validations:
+      required: false
+
