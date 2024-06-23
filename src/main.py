@@ -78,6 +78,7 @@ class TestingBot(commands.AutoShardedBot):
 
 
     async def on_ready(self):
+        self.uptime = discord.utils.utcnow()
         print("Ready!")
 
 
