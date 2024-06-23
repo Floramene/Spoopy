@@ -52,7 +52,7 @@ class TwitchServiceCog(commands.Cog, name="Twitch Notification Service"):
                         # Format embed
                         embed = discord.Embed(title=f"{checker.TWITCH_USERNAME} is live on Twitch!", colour=discord.Colour(int(hex_color[1:], 16)), timestamp=discord.utils.utcnow())
                         embed.description = f"{streamer_info['title']}"
-                        embed.description += f"\n\nWill check again {format_dt(datetime.fromtimestamp(TIME + WAIT_FACTOR), style="R")}"
+                        embed.description += f"\n\nWill check again {format_dt(datetime.fromtimestamp(TIME + WAIT_FACTOR), style='R')}"
                         embed.url = streamer_info['url']
                         embed.set_image(url=streamer_info['preview'])
                         embed.set_thumbnail(url=streamer_info['avatar'])
