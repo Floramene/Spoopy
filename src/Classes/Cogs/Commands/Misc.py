@@ -19,6 +19,11 @@ class MiscCog(commands.Cog, name="Miscellaneous"):
     async def botinfo(self, ctx: commands.Context):
         latency = self.bot.latency * 1000.0
         ram_usage = self.process.memory_full_info().rss / 1024**2
+        difference = discord.utils.utcnow() - self.bot.uptime            
+
+        days, remainder = divmod(difference.total_seconds(), 86400)
+        hours, remainder = divmod(remainder, 3600)
+        minutes, seconds = divmod(remainder, 60)
 
         data = await download_asset(self.bot.user.display_avatar)
         hex_color = color_thief(data)
@@ -37,7 +42,8 @@ class MiscCog(commands.Cog, name="Miscellaneous"):
         embed.add_field(name="RAM Usage", value=f"`{ram_usage:.2f} MiB`", inline=True)
         embed.add_field(name="Built With", value=f"`discord.py {discord.__version__}`", inline=True)
         embed.add_field(name="Running On", value=f"`{platform.release()}`", inline=True)
-        embed.add_field(name="Made with ♥ by", value="[Flora <3](https://github.com/Floramene)", inline=True)
+        embed.add_field(name="Uptime", value=f"{int(days)}d {int(hours)}h {int(minutes)}m {int(seconds)}s", inline=True)
+        embed.set_footer(text="Made with ♥ by Floramene")
 
         await ctx.reply(embed=embed, allowed_mentions=discord.AllowedMentions.none())
 
