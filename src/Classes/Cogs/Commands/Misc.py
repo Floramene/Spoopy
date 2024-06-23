@@ -20,19 +20,25 @@ class MiscCog(commands.Cog, name="Miscellaneous"):
         latency = self.bot.latency * 1000.0
         ram_usage = self.process.memory_full_info().rss / 1024**2
 
-        server_str = f"> **Servers** - `{len(ctx.bot.guilds)}`"
-        latency_str = f"> **Latency** - `{latency:.2f} ms`"
-        ram_usage_str = f"> **RAM Usage** - `{ram_usage:.2f} MiB`"
-        built_with_str = f"> **Built with** - `discord.py`"
-        built_by_str = f"> **Made with ♥ by** - [Flora <3](https://github.com/Floramene)"
-        embed_body = f"{server_str}\n{latency_str}\n{ram_usage_str}\n{built_with_str}\n\n{built_by_str}"
-
-        data = await download_asset(self.bot.user.avatar)
+        data = await download_asset(self.bot.user.display_avatar)
         hex_color = color_thief(data)
 
-        embed = discord.Embed(title=f"{self.bot.user.name} - Invite Me!", description=embed_body, colour=int(hex_color[1:], 16), timestamp=discord.utils.utcnow())
+        embed = discord.Embed(
+            title=f"{self.bot.user.name} - Invite Me!",
+            description="Here's some information about the bot.",
+            colour=int(hex_color[1:], 16),
+            timestamp=discord.utils.utcnow()
+        )
         embed.url = f"https://discord.com/oauth2/authorize?client_id={self.bot.user.id}&scope=bot+applications.commands&permissions=8"
-        embed.set_thumbnail(url=self.bot.user.avatar)
+
+        embed.set_thumbnail(url=self.bot.user.display_avatar.url)
+        embed.add_field(name="Servers", value=f"`{len(ctx.bot.guilds)}`", inline=True)
+        embed.add_field(name="Latency", value=f"`{latency:.2f} ms`", inline=True)
+        embed.add_field(name="RAM Usage", value=f"`{ram_usage:.2f} MiB`", inline=True)
+        embed.add_field(name="Built With", value=f"`discord.py {discord.__version__}`", inline=True)
+        embed.add_field(name="Running On", value=f"`{platform.release()}`", inline=True)
+        embed.add_field(name="Made with ♥ by", value="[Flora <3](https://github.com/Floramene)", inline=True)
+
         await ctx.reply(embed=embed, allowed_mentions=discord.AllowedMentions.none())
 
 
